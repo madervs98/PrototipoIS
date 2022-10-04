@@ -30,7 +30,7 @@ namespace PrototipoIS
         }
 
 
-
+        //Mantener los campos actualizados en el DGV
         public DataTable GetAll()
         {
             var tabla = new DataTable();
@@ -39,9 +39,6 @@ namespace PrototipoIS
             {
                 openConexion.Open();
                 comando.Connection = openConexion;
-                // comando.CommandText = "SELECT * FROM Productos";
-                //comando.Parameters.Add("@id", SqlDbType.Int).Value = eliminar;
-                //comando.ExecuteNonQuery();
                 var datos = new SqlDataAdapter("SELECT * FROM Productos", openConexion);
                 datos.Fill(tabla);
             }
@@ -62,17 +59,9 @@ namespace PrototipoIS
 
             LoadDGVproductos();
             NuevoIngreso();
-
-            //Conexion.Open();
-
-            //DataTable data = new DataTable();
-            //SqlDataAdapter Data = new SqlDataAdapter("SELECT * FROM Productos", Conexion);
-
-            //Data.Fill(data);
-
-            //dgvProductos.DataSource = data;
-            //Conexion.Close();
+    
         }
+
         //Botón para limpiar los campos. 
 
         private void Limpieza()
@@ -89,9 +78,9 @@ namespace PrototipoIS
         {
             Limpieza();
         }
-        //Boton Ingresar Datos.
 
 
+        //Metodo Nuevo Ingreso
         private void NuevoIngreso()
         {
             int id = 0;
@@ -113,6 +102,7 @@ namespace PrototipoIS
             }
 
         }
+        //Metodo Guardar
         private void Guardar()
         {
 
@@ -131,43 +121,15 @@ namespace PrototipoIS
                 comando.ExecuteNonQuery();
             }
         }
+
+        //Boton de Agregar Datos a DGV
         private void button1_Click(object sender, EventArgs e)
         {
             Guardar();
             Limpieza();
             NuevoIngreso();
             LoadDGVproductos();
-            //Conexion.Open();
-            //int error = 0;
-            //string Query = "INSERT INTO Productos VALUES('" + tb_CodProduct.Text + "','" + tb_NomPro.Text + "','" + cb_TipoPro.Text + "','" + 
-            //    tb_DescripPro.Text + "','" + tb_CantPro.Text + "','" + tb_PrecioPro.Text + "')";
-
-            //SqlCommand comando = new SqlCommand(Query, Conexion);
-
-            //error = comando.ExecuteNonQuery();
-            //if (error == 1)
-            //{
-            //    MessageBox.Show("Datos guardados.");
-
-            //    tb_CodProduct.Clear();
-            //    tb_NomPro.Clear();
-            //    cb_TipoPro.Text= "";
-            //    tb_DescripPro.Clear();
-            //    tb_CantPro.Clear();
-            //    tb_PrecioPro.Clear();
-            //    tb_CodProduct.Focus();
-
-            //    DataTable data = new DataTable();
-            //    SqlDataAdapter Data = new SqlDataAdapter("SELECT * FROM Productos", Conexion);
-
-            //    Data.Fill(data);
-
-            //    dgvProductos.DataSource = data;
-            //}
-            //else
-            //    MessageBox.Show("Error al guardar los datos.");
-
-            //Conexion.Close();
+           
         }
         //Botón Actualizar
         private void btn_Actualizar_Click(object sender, EventArgs e)
@@ -235,34 +197,6 @@ namespace PrototipoIS
                 Eliminar(Convert.ToInt32(dgvProductos.CurrentRow.Cells[0].Value));
                 LoadDGVproductos();
             }
-
-
-
-            //Conexion.Open();
-
-            //int error = 0;
-
-            //string Query = "DELETE FROM Productos WHERE id_productos=" + tb_CodProduct.Text + "";
-            //SqlCommand comando = new SqlCommand(Query, Conexion);
-
-            //error = comando.ExecuteNonQuery();
-            //if (error == 1)
-            //{
-            //    MessageBox.Show("El producto ha sido eliminado.");
-            //    tb_CodProduct.Clear();
-            //    DataTable data = new DataTable();
-            //    SqlDataAdapter Data = new SqlDataAdapter("SELECT * FROM Productos", Conexion);
-
-            //    Data.Fill(data);
-
-            //    dgvProductos.DataSource = data;
-            //}
-
-            //else
-            //{
-            //    MessageBox.Show("No se ha eliminado ningun producto.");
-            //}
-            //Conexion.Close();
         }
 
 
