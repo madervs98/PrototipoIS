@@ -133,71 +133,28 @@ namespace PrototipoIS
         }
 
 
-        //private void Actualizar()
-        //{
-        //    using (var openConexion = new SqlConnection(Conexion))
-        //    using (var comando = new SqlCommand())
-        //    {
-        //        openConexion.Open();
-        //        comando.Connection = openConexion;
-        //        comando.CommandText = "UPDATE Productos SET id_productos = " + tb_CodProduct.Text + ", @nombre " + tb_NomPro.Text + ", @tipoPro " + cb_TipoPro.Text + ", @Descripcion " + tb_DescripPro.Text + ", @Cantidad " + tb_CantPro.Text + ", @Precio " + tb_PrecioPro.Text + "  WHERE id_productos = @id";
-        //        comando.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(tb_CodProduct.Text);
-        //        comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = tb_NomPro.Text;
-        //        comando.Parameters.Add("@tipoPro", SqlDbType.VarChar).Value = cb_TipoPro.Text;
-        //        comando.Parameters.Add("@Descripcion", SqlDbType.VarChar).Value = tb_DescripPro.Text;
-        //        comando.Parameters.Add("@Cantidad", SqlDbType.VarChar).Value = tb_CantPro.Text;
-        //        comando.Parameters.Add("@Precio", SqlDbType.VarChar).Value = tb_PrecioPro.Text;
-        //        comando.ExecuteNonQuery();
+        private void Actualizar()
+        {
+            using (var openConexion = new SqlConnection(Conexion))
+            using (var comando = new SqlCommand())
+            {
+                openConexion.Open();
+                comando.Connection = openConexion;
+                comando.CommandText = "UPDATE Productos SET id_productos = @id,nom_pro = @nombre, tipo_pro = @tipoPro, descrip_pro=@Descripcion, cant_pro=@Cantidad, precio_pro=@Precio WHERE id_productos = @id";
+               // comando.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(tb_CodProduct.Text);
+                comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = tb_NomPro.Text;
+                comando.Parameters.Add("@tipoPro", SqlDbType.VarChar).Value = cb_TipoPro.Text;
+                comando.Parameters.Add("@Descripcion", SqlDbType.VarChar).Value = tb_DescripPro.Text;
+                comando.Parameters.Add("@Cantidad", SqlDbType.VarChar).Value = tb_CantPro.Text;
+                comando.Parameters.Add("@Precio", SqlDbType.VarChar).Value = tb_PrecioPro.Text;
+                comando.ExecuteNonQuery();
 
-        //        if ()
-        //        {
-        //            MessageBox.Show("Datos actualizados correctamente.");
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("Error al actualizar.");
-        //        }
-        //    }
-        //}
+                
+            }
+        }
         private void btn_Actualizar_Click(object sender, EventArgs e)
         {
-            
-             
-            //Conexion.Open();
-
-            //int error = 0;
-
-            //string Query = " UPDATE Productos SET id_productos= '" + tb_CodProduct.Text + "', nom_pro='" + tb_NomPro.Text + "', tipo_pro='" +
-            //cb_TipoPro.Text + "',descrip_pro='" + tb_DescripPro.Text + "',cant_pro='" + tb_CantPro.Text + "',precio_pro='"+ tb_PrecioPro.Text +
-            //"' WHERE id_productos='" + tb_CodProduct.Text + "'";
-
-            //SqlCommand comando = new SqlCommand(Query, Conexion);
-
-            //error = comando.ExecuteNonQuery();
-            //if (error == 1)
-            //{
-            //    MessageBox.Show("Datos actualizados.");
-
-            //    tb_CodProduct.Clear();
-            //    tb_NomPro.Clear();
-            //    cb_TipoPro.Text = "";
-            //    tb_DescripPro.Clear();
-            //    tb_CantPro.Clear();
-            //    tb_PrecioPro.Clear();
-            //    tb_CodProduct.Focus();
-
-            //    DataTable data = new DataTable();
-            //    SqlDataAdapter Data = new SqlDataAdapter("SELECT * FROM Productos", Conexion);
-
-            //    Data.Fill(data);
-
-            //    dgvProductos.DataSource = data;
-            //}else
-            //{
-            //    MessageBox.Show("Error al actualizar información.");
-            //}
-
-            //Conexion.Close();
+            Actualizar();
         }
 
 
@@ -289,13 +246,26 @@ namespace PrototipoIS
 
         private void dgvProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string rellenar = Convert.ToString(e.RowIndex);
+            tb_CodProduct.Text = dgvProductos.CurrentRow.Cells[0].Value.ToString();
+            tb_NomPro.Text = dgvProductos.CurrentRow.Cells[1].Value.ToString();
+            tb_DescripPro.Text = dgvProductos.CurrentRow.Cells[2].Value.ToString();
+            cb_TipoPro.Text = dgvProductos.CurrentRow.Cells[3].Value.ToString();
+            tb_CantPro.Text = dgvProductos.CurrentRow.Cells[4].Value.ToString();
+            tb_PrecioPro.Text = dgvProductos.CurrentRow.Cells[5].Value.ToString();
         }
 
-        private void dgvProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+       private void dgvProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            string campo;
-            campo = dgvProductos.Rows[rellenar.select].Cells["Campo"].Value.ToString();
+            
+        }
+
+        private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void dgvProductos_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
             
         }
     }

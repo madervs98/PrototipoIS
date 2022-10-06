@@ -218,7 +218,6 @@
             this.dgvProductos.Size = new System.Drawing.Size(645, 257);
             this.dgvProductos.TabIndex = 14;
             this.dgvProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellClick);
-            this.dgvProductos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellContentDoubleClick);
             // 
             // btn_Ingresar
             // 
