@@ -176,9 +176,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::PrototipoIS.Properties.Resources.Logo2;
-            this.pictureBox1.Location = new System.Drawing.Point(184, 15);
+            this.pictureBox1.Location = new System.Drawing.Point(192, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(160, 120);
+            this.pictureBox1.Size = new System.Drawing.Size(172, 130);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 28;
             this.pictureBox1.TabStop = false;

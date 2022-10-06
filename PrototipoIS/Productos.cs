@@ -131,9 +131,38 @@ namespace PrototipoIS
             LoadDGVproductos();
            
         }
-        //Botón Actualizar
+
+
+        //private void Actualizar()
+        //{
+        //    using (var openConexion = new SqlConnection(Conexion))
+        //    using (var comando = new SqlCommand())
+        //    {
+        //        openConexion.Open();
+        //        comando.Connection = openConexion;
+        //        comando.CommandText = "UPDATE Productos SET id_productos = " + tb_CodProduct.Text + ", @nombre " + tb_NomPro.Text + ", @tipoPro " + cb_TipoPro.Text + ", @Descripcion " + tb_DescripPro.Text + ", @Cantidad " + tb_CantPro.Text + ", @Precio " + tb_PrecioPro.Text + "  WHERE id_productos = @id";
+        //        comando.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(tb_CodProduct.Text);
+        //        comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = tb_NomPro.Text;
+        //        comando.Parameters.Add("@tipoPro", SqlDbType.VarChar).Value = cb_TipoPro.Text;
+        //        comando.Parameters.Add("@Descripcion", SqlDbType.VarChar).Value = tb_DescripPro.Text;
+        //        comando.Parameters.Add("@Cantidad", SqlDbType.VarChar).Value = tb_CantPro.Text;
+        //        comando.Parameters.Add("@Precio", SqlDbType.VarChar).Value = tb_PrecioPro.Text;
+        //        comando.ExecuteNonQuery();
+
+        //        if ()
+        //        {
+        //            MessageBox.Show("Datos actualizados correctamente.");
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Error al actualizar.");
+        //        }
+        //    }
+        //}
         private void btn_Actualizar_Click(object sender, EventArgs e)
         {
+            
+             
             //Conexion.Open();
 
             //int error = 0;
@@ -179,7 +208,7 @@ namespace PrototipoIS
             {
                 openConexion.Open();
                 comando.Connection = openConexion;
-                comando.CommandText = "Delete From Productos Where id_productos = @id";
+                comando.CommandText = "DELETE FROM Productos WHERE id_productos = @id";
                 comando.Parameters.Add("@id", SqlDbType.Int).Value = eliminar;
                 comando.ExecuteNonQuery();
             }
@@ -206,6 +235,8 @@ namespace PrototipoIS
             Usuario VolverInicio = new Usuario();
             VolverInicio.Show();
         }
+
+        
 
         private void btnBuscador_Click(object sender, EventArgs e)
         {
@@ -254,6 +285,18 @@ namespace PrototipoIS
             //}
 
             //Conexion.Close();
+        }
+
+        private void dgvProductos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string rellenar = Convert.ToString(e.RowIndex);
+        }
+
+        private void dgvProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string campo;
+            campo = dgvProductos.Rows[rellenar.select].Cells["Campo"].Value.ToString();
+            
         }
     }
 }
