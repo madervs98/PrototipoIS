@@ -66,9 +66,9 @@
             this.label1.Location = new System.Drawing.Point(334, 44);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(242, 23);
+            this.label1.Size = new System.Drawing.Size(252, 23);
             this.label1.TabIndex = 0;
-            this.label1.Text = "REGISTRO DE PRODUCTOS";
+            this.label1.Text = "REGISTROS DE PRODUCTOS";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2

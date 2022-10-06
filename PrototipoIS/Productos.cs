@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,13 +23,10 @@ namespace PrototipoIS
         //Conexión de Base de Datos.
         String Conexion = "Data Source=.;Initial Catalog=PrototipoIS;Integrated Security=True";
         
-
-
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
-
 
         //Mantener los campos actualizados en el DGV
         public DataTable GetAll()
@@ -52,8 +50,6 @@ namespace PrototipoIS
             
         }
 
-
-
         private void Productos_Load(object sender, EventArgs e)
         {
 
@@ -63,10 +59,9 @@ namespace PrototipoIS
         }
 
         //Botón para limpiar los campos. 
-
         private void Limpieza()
         {
-            tb_CodProduct.Clear();
+            //tb_CodProduct.Clear();
             tb_NomPro.Clear();
             cb_TipoPro.Text = "";
             tb_DescripPro.Clear();
@@ -131,8 +126,6 @@ namespace PrototipoIS
             LoadDGVproductos();
            
         }
-
-
         private void Actualizar()
         {
             using (var openConexion = new SqlConnection(Conexion))
@@ -140,8 +133,8 @@ namespace PrototipoIS
             {
                 openConexion.Open();
                 comando.Connection = openConexion;
-                comando.CommandText = "UPDATE Productos SET id_productos = @id,nom_pro = @nombre, tipo_pro = @tipoPro, descrip_pro=@Descripcion, cant_pro=@Cantidad, precio_pro=@Precio WHERE id_productos = @id";
-               // comando.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(tb_CodProduct.Text);
+                comando.CommandText = "UPDATE Productos SET nom_pro = @nombre, tipo_pro = @tipoPro, descrip_pro=@Descripcion, cant_pro=@Cantidad, precio_pro=@Precio WHERE id_productos = @id";
+                comando.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(tb_CodProduct.Text);
                 comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = tb_NomPro.Text;
                 comando.Parameters.Add("@tipoPro", SqlDbType.VarChar).Value = cb_TipoPro.Text;
                 comando.Parameters.Add("@Descripcion", SqlDbType.VarChar).Value = tb_DescripPro.Text;
@@ -155,6 +148,9 @@ namespace PrototipoIS
         private void btn_Actualizar_Click(object sender, EventArgs e)
         {
             Actualizar();
+            NuevoIngreso();
+            LoadDGVproductos();
+            Limpieza();
         }
 
 
@@ -181,7 +177,9 @@ namespace PrototipoIS
 
             if(result == DialogResult.Yes) {
                 Eliminar(Convert.ToInt32(dgvProductos.CurrentRow.Cells[0].Value));
+                NuevoIngreso();
                 LoadDGVproductos();
+                Limpieza();
             }
         }
 
@@ -193,28 +191,10 @@ namespace PrototipoIS
             VolverInicio.Show();
         }
 
-        
-
-        private void btnBuscador_Click(object sender, EventArgs e)
+        private void Buscador()
         {
-            //Conexion.Open();
 
-            ////String Contenido = "";
-
-            //string Query = "SELECT * FROM Productos WHERE id_productos= " + tb_buscador.Text;
-            //SqlDataAdapter adaptador = new SqlDataAdapter(Query, Conexion);
-
-            //DataTable data = new DataTable();
-            //adaptador.Fill(data);
-            //dgvProductos.DataSource = data;
-            //SqlCommand comando = new SqlCommand(Query, Conexion);
-            //SqlDataReader lector;
-            //lector = comando.ExecuteReader();
-
-
-            //Conexion.Close();
         }
-
         private void tb_buscador_TextChanged(object sender, EventArgs e)
         {
             //Conexion.Open();
@@ -254,19 +234,11 @@ namespace PrototipoIS
             tb_PrecioPro.Text = dgvProductos.CurrentRow.Cells[5].Value.ToString();
         }
 
-       private void dgvProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void Procesos()
         {
-            
+           
+
         }
 
-        private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
-        private void dgvProductos_CellClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
     }
 }
