@@ -71,7 +71,8 @@ namespace PrototipoIS
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            Limpieza();
+            Procesos(btn_Limpiar);
+
         }
 
 
@@ -120,11 +121,9 @@ namespace PrototipoIS
         //Boton de Agregar Datos a DGV
         private void button1_Click(object sender, EventArgs e)
         {
-            Guardar();
-            Limpieza();
-            NuevoIngreso();
-            LoadDGVproductos();
-           
+            Procesos(btn_Ingresar);
+
+
         }
         private void Actualizar()
         {
@@ -147,10 +146,7 @@ namespace PrototipoIS
         }
         private void btn_Actualizar_Click(object sender, EventArgs e)
         {
-            Actualizar();
-            NuevoIngreso();
-            LoadDGVproductos();
-            Limpieza();
+            Procesos(btn_Actualizar);
         }
 
 
@@ -176,10 +172,12 @@ namespace PrototipoIS
             MessageBoxDefaultButton.Button1);
 
             if(result == DialogResult.Yes) {
-                Eliminar(Convert.ToInt32(dgvProductos.CurrentRow.Cells[0].Value));
+
+                Procesos(btn_Eliminar);
+                /*Eliminar(Convert.ToInt32(dgvProductos.CurrentRow.Cells[0].Value));
                 NuevoIngreso();
-                LoadDGVproductos();
-                Limpieza();
+                LoadDGVproductos();*/
+                //Limpieza();
             }
         }
 
@@ -197,6 +195,11 @@ namespace PrototipoIS
         }
         private void tb_buscador_TextChanged(object sender, EventArgs e)
         {
+
+            //Buscador();
+            //(dgvProductos.DataSource as DataTable).DefaultView.RowFilter = string.Format("@id = '{0}'", tb_buscador.Text);
+
+
             //Conexion.Open();
 
             ////String Contenido = "";
@@ -213,7 +216,7 @@ namespace PrototipoIS
 
             //if(tb_buscador.Text == "")
             //{
-                
+
             //    SqlDataAdapter Data = new SqlDataAdapter("SELECT * FROM Productos", Conexion);
 
             //    Data.Fill(data);
@@ -234,10 +237,37 @@ namespace PrototipoIS
             tb_PrecioPro.Text = dgvProductos.CurrentRow.Cells[5].Value.ToString();
         }
 
-        private void Procesos()
+        //Metodo para englobar
+        private void Procesos(object sender)
         {
-           
-
+            
+            Button btn = sender as Button;
+            
+            if (btn == btn_Ingresar)
+            {
+                Guardar();
+                Limpieza();
+                NuevoIngreso();
+                LoadDGVproductos();
+            }
+            else if(btn == btn_Limpiar)
+            {
+                Limpieza();
+            }
+            else if (btn == btn_Actualizar)
+            {
+                Actualizar();
+                NuevoIngreso();
+                LoadDGVproductos();
+                Limpieza();
+            }
+            else if (btn == btn_Eliminar)
+            {
+                Eliminar(Convert.ToInt32(dgvProductos.CurrentRow.Cells[0].Value));
+                NuevoIngreso();
+                LoadDGVproductos();
+            }
+            
         }
 
     }
