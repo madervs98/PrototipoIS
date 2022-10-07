@@ -18,6 +18,7 @@ namespace PrototipoIS
         public Productos()
         {
             InitializeComponent();
+            EventosAsociados();
         }
 
         //Conexión de Base de Datos.
@@ -69,12 +70,6 @@ namespace PrototipoIS
             tb_PrecioPro.Clear();
             tb_NomPro.Focus();
         }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Procesos(btn_Limpiar);
-
-        }
-
 
         //Metodo Nuevo Ingreso
         private void NuevoIngreso()
@@ -118,13 +113,6 @@ namespace PrototipoIS
             }
         }
 
-        //Boton de Agregar Datos a DGV
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Procesos(btn_Ingresar);
-
-
-        }
         private void Actualizar()
         {
             using (var openConexion = new SqlConnection(Conexion))
@@ -144,10 +132,10 @@ namespace PrototipoIS
                 
             }
         }
-        private void btn_Actualizar_Click(object sender, EventArgs e)
-        {
-            Procesos(btn_Actualizar);
-        }
+        //private void btn_Actualizar_Click(object sender, EventArgs e)
+        //{
+        //    Procesos(btn_Actualizar);
+        //}
 
 
         private void Eliminar(int eliminar)
@@ -164,22 +152,23 @@ namespace PrototipoIS
 
         }
 
-        private void btn_Eliminar_Click(object sender, EventArgs e)
-        {
-            var result = MessageBox.Show("¿Desea eliminar este producto?", "ELIMINAR PRODUCTO",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Question, 
-            MessageBoxDefaultButton.Button1);
+        //private void btn_Eliminar_Click(object sender, EventArgs e)
+        //{
+        //    var result = MessageBox.Show("¿Desea eliminar este producto?", "ELIMINAR PRODUCTO",
+        //    MessageBoxButtons.YesNo,
+        //    MessageBoxIcon.Question,
+        //    MessageBoxDefaultButton.Button1);
 
-            if(result == DialogResult.Yes) {
+        //    if (result == DialogResult.Yes)
+        //    {
 
-                Procesos(btn_Eliminar);
-                /*Eliminar(Convert.ToInt32(dgvProductos.CurrentRow.Cells[0].Value));
-                NuevoIngreso();
-                LoadDGVproductos();*/
-                //Limpieza();
-            }
-        }
+        //        Procesos(btn_Eliminar);
+        //        /*Eliminar(Convert.ToInt32(dgvProductos.CurrentRow.Cells[0].Value));
+        //        NuevoIngreso();
+        //        LoadDGVproductos();*/
+        //        //Limpieza();
+        //    }
+        //}
 
 
         private void btn_volver_Click(object sender, EventArgs e)
@@ -189,10 +178,7 @@ namespace PrototipoIS
             VolverInicio.Show();
         }
 
-        private void Buscador()
-        {
-
-        }
+       
         private void tb_buscador_TextChanged(object sender, EventArgs e)
         {
 
@@ -246,29 +232,78 @@ namespace PrototipoIS
             if (btn == btn_Ingresar)
             {
                 Guardar();
-                Limpieza();
-                NuevoIngreso();
-                LoadDGVproductos();
             }
-            else if(btn == btn_Limpiar)
+            /*else if(btn == btn_Limpiar)
             {
                 Limpieza();
-            }
+            }*/
             else if (btn == btn_Actualizar)
             {
                 Actualizar();
-                NuevoIngreso();
-                LoadDGVproductos();
-                Limpieza();
             }
             else if (btn == btn_Eliminar)
             {
                 Eliminar(Convert.ToInt32(dgvProductos.CurrentRow.Cells[0].Value));
+                Limpieza();
                 NuevoIngreso();
                 LoadDGVproductos();
+            }
+            if (btn != btn_Eliminar)
+            {
+                Limpieza(); 
+                NuevoIngreso();
+                LoadDGVproductos(); 
             }
             
         }
 
+        private void EventosAsociados()
+        {
+            btn_Ingresar.Click += delegate (object sender, EventArgs e) //Agregar
+            {
+                Procesos(btn_Ingresar);
+            };
+
+            btn_Limpiar.Click += delegate (object sender, EventArgs e) //Limpiar
+           {
+               Procesos(btn_Limpiar);
+
+           };
+
+            btn_Actualizar.Click += delegate (object sender, EventArgs e)
+            {
+                Procesos(btn_Actualizar);
+            };
+
+            btn_Eliminar.Click += delegate (object sender, EventArgs e)
+            {
+                var result = MessageBox.Show("¿Desea eliminar este producto?", "ELIMINAR PRODUCTO",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button1);
+
+                if (result == DialogResult.Yes)
+                {
+
+                    Procesos(btn_Eliminar);
+
+                }
+            };
+        }
+
+        //private void btn_Limpiar_Click(object sender, EventArgs e)
+        //{
+        //    Procesos(btn_Limpiar);
+
+        //}
+
+        //private void btn_Ingresar_Click(object sender, EventArgs e)
+        //{
+        //    Procesos(btn_Ingresar);
+        //}
+
+
+
+        //Final
     }
 }

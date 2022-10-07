@@ -231,7 +231,7 @@
             this.btn_Ingresar.Size = new System.Drawing.Size(80, 35);
             this.btn_Ingresar.TabIndex = 15;
             this.btn_Ingresar.UseVisualStyleBackColor = false;
-            this.btn_Ingresar.Click += new System.EventHandler(this.button1_Click);
+            //this.btn_Ingresar.Click += new System.EventHandler(this.btn_Ingresar_Click);
             // 
             // btn_Limpiar
             // 
@@ -240,12 +240,13 @@
             this.btn_Limpiar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Limpiar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btn_Limpiar.Image = global::PrototipoIS.Properties.Resources.limpiar;
+            this.btn_Limpiar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_Limpiar.Location = new System.Drawing.Point(722, 367);
             this.btn_Limpiar.Name = "btn_Limpiar";
             this.btn_Limpiar.Size = new System.Drawing.Size(80, 35);
             this.btn_Limpiar.TabIndex = 16;
             this.btn_Limpiar.UseVisualStyleBackColor = false;
-            this.btn_Limpiar.Click += new System.EventHandler(this.button2_Click);
+           // this.btn_Limpiar.Click += new System.EventHandler(this.btn_Limpiar_Click);
             // 
             // btn_Eliminar
             // 
@@ -259,7 +260,7 @@
             this.btn_Eliminar.Size = new System.Drawing.Size(80, 35);
             this.btn_Eliminar.TabIndex = 18;
             this.btn_Eliminar.UseVisualStyleBackColor = false;
-            this.btn_Eliminar.Click += new System.EventHandler(this.btn_Eliminar_Click);
+           // this.btn_Eliminar.Click += new System.EventHandler(this.btn_Eliminar_Click);
             // 
             // btn_Actualizar
             // 
@@ -273,7 +274,7 @@
             this.btn_Actualizar.Size = new System.Drawing.Size(80, 35);
             this.btn_Actualizar.TabIndex = 17;
             this.btn_Actualizar.UseVisualStyleBackColor = false;
-            this.btn_Actualizar.Click += new System.EventHandler(this.btn_Actualizar_Click);
+            //this.btn_Actualizar.Click += new System.EventHandler(this.btn_Actualizar_Click);
             // 
             // btn_volver
             // 
