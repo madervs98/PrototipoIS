@@ -33,6 +33,8 @@ namespace PrototipoIS
         public DataTable GetAll()
         {
             var tabla = new DataTable();
+           // int id = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
+            //string nombre = value;
             using (var openConexion = new SqlConnection(Conexion))
             using (var comando = new SqlCommand())
             {
@@ -44,9 +46,36 @@ namespace PrototipoIS
             return tabla;
         }
 
-        private void LoadDGVproductos()
+        public DataTable GetByValue(string value)
         {
-            dgvProductos.DataSource = GetAll();
+            var tabla = new DataTable();
+            int id = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
+            string nombre = value;
+            using (var openConexion = new SqlConnection(Conexion))
+            using (var comando = new SqlCommand())
+            {
+                openConexion.Open();
+                comando.Connection = openConexion;
+                comando.CommandText = ("SELECT * FROM Productos WHERE id_productos=@id OR nom_pro LIKE @nombre+'%' ORDER BY id_productos ");
+                comando.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                var datos = new SqlDataAdapter(comando);
+                datos.Fill(tabla);
+            }
+            return tabla;
+        }
+
+        private void LoadDGVproductos(bool search)
+        {
+            if(search == true)
+            {
+                dgvProductos.DataSource = GetAll();
+            }
+            else
+            {
+                dgvProductos.DataSource = GetByValue(tb_buscador.Text);
+            }
+            ;
             label8.Text = "Total de Registros: " + dgvProductos.RowCount;
             
         }
@@ -54,7 +83,7 @@ namespace PrototipoIS
         private void Productos_Load(object sender, EventArgs e)
         {
 
-            LoadDGVproductos();
+            LoadDGVproductos(true);
             NuevoIngreso();
     
         }
@@ -62,7 +91,6 @@ namespace PrototipoIS
         //Botón para limpiar los campos. 
         private void Limpieza()
         {
-            //tb_CodProduct.Clear();
             tb_NomPro.Clear();
             cb_TipoPro.Text = "";
             tb_DescripPro.Clear();
@@ -81,7 +109,6 @@ namespace PrototipoIS
                 openConexion.Open();
                 comando.Connection = openConexion;
                 comando.CommandText = "SELECT MAX(id_productos) FROM Productos";
-                //comando.ExecuteNonQuery();
 
                 if (comando.ExecuteScalar()is DBNull) { id = 1; }
                 else if (Convert.ToInt32(comando.ExecuteScalar()) > 0)
@@ -103,7 +130,6 @@ namespace PrototipoIS
                 openConexion.Open();
                 comando.Connection = openConexion;
                 comando.CommandText = "INSERT INTO Productos VALUES (@nombre, @tipoPro, @Descripcion, @Cantidad, @Precio) ";
-               // comando.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(tb_CodProduct.Text);
                 comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = tb_NomPro.Text;
                 comando.Parameters.Add("@tipoPro", SqlDbType.VarChar).Value = cb_TipoPro.Text;
                 comando.Parameters.Add("@Descripcion", SqlDbType.VarChar).Value = tb_DescripPro.Text;
@@ -128,15 +154,9 @@ namespace PrototipoIS
                 comando.Parameters.Add("@Cantidad", SqlDbType.VarChar).Value = tb_CantPro.Text;
                 comando.Parameters.Add("@Precio", SqlDbType.VarChar).Value = tb_PrecioPro.Text;
                 comando.ExecuteNonQuery();
-
                 
             }
         }
-        //private void btn_Actualizar_Click(object sender, EventArgs e)
-        //{
-        //    Procesos(btn_Actualizar);
-        //}
-
 
         private void Eliminar(int eliminar)
         {
@@ -152,65 +172,11 @@ namespace PrototipoIS
 
         }
 
-        //private void btn_Eliminar_Click(object sender, EventArgs e)
-        //{
-        //    var result = MessageBox.Show("¿Desea eliminar este producto?", "ELIMINAR PRODUCTO",
-        //    MessageBoxButtons.YesNo,
-        //    MessageBoxIcon.Question,
-        //    MessageBoxDefaultButton.Button1);
-
-        //    if (result == DialogResult.Yes)
-        //    {
-
-        //        Procesos(btn_Eliminar);
-        //        /*Eliminar(Convert.ToInt32(dgvProductos.CurrentRow.Cells[0].Value));
-        //        NuevoIngreso();
-        //        LoadDGVproductos();*/
-        //        //Limpieza();
-        //    }
-        //}
-
-
         private void btn_volver_Click(object sender, EventArgs e)
         {
             this.Hide();
             Usuario VolverInicio = new Usuario();
             VolverInicio.Show();
-        }
-
-       
-        private void tb_buscador_TextChanged(object sender, EventArgs e)
-        {
-
-            //Buscador();
-            //(dgvProductos.DataSource as DataTable).DefaultView.RowFilter = string.Format("@id = '{0}'", tb_buscador.Text);
-
-
-            //Conexion.Open();
-
-            ////String Contenido = "";
-
-            //string Query = "SELECT * FROM Productos WHERE id_productos= " + tb_buscador.Text;
-            //SqlDataAdapter adaptador = new SqlDataAdapter(Query, Conexion);
-
-            //DataTable data = new DataTable();
-            //adaptador.Fill(data);
-            //dgvProductos.DataSource = data;
-            //SqlCommand comando = new SqlCommand(Query, Conexion);
-            //SqlDataReader lector;
-            //lector = comando.ExecuteReader();
-
-            //if(tb_buscador.Text == "")
-            //{
-
-            //    SqlDataAdapter Data = new SqlDataAdapter("SELECT * FROM Productos", Conexion);
-
-            //    Data.Fill(data);
-
-            //    dgvProductos.DataSource = data;
-            //}
-
-            //Conexion.Close();
         }
 
         private void dgvProductos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -246,13 +212,13 @@ namespace PrototipoIS
                 Eliminar(Convert.ToInt32(dgvProductos.CurrentRow.Cells[0].Value));
                 Limpieza();
                 NuevoIngreso();
-                LoadDGVproductos();
+                LoadDGVproductos(true);
             }
             if (btn != btn_Eliminar)
             {
                 Limpieza(); 
                 NuevoIngreso();
-                LoadDGVproductos(); 
+                LoadDGVproductos(true); 
             }
             
         }
@@ -289,20 +255,22 @@ namespace PrototipoIS
 
                 }
             };
+            tb_buscador.TextChanged += delegate (object sender, EventArgs e)
+            {
+                if (string.IsNullOrWhiteSpace(tb_buscador.Text))
+                {
+                    LoadDGVproductos(true);
+                    return;
+                }
+                LoadDGVproductos(false);
+            };
         }
 
-        //private void btn_Limpiar_Click(object sender, EventArgs e)
-        //{
-        //    Procesos(btn_Limpiar);
 
-        //}
+        private void tb_buscador_TextChanged(object sender, EventArgs e)
+        {
 
-        //private void btn_Ingresar_Click(object sender, EventArgs e)
-        //{
-        //    Procesos(btn_Ingresar);
-        //}
-
-
+        }
 
         //Final
     }
