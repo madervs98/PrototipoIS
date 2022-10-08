@@ -24,11 +24,6 @@ namespace PrototipoIS
         //Conexión de Base de Datos.
         String Conexion = "Data Source=.;Initial Catalog=PrototipoIS;Integrated Security=True";
         
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         //Mantener los campos actualizados en el DGV
         public DataTable GetAll()
         {
@@ -255,6 +250,7 @@ namespace PrototipoIS
 
                 }
             };
+
             tb_buscador.TextChanged += delegate (object sender, EventArgs e)
             {
                 if (string.IsNullOrWhiteSpace(tb_buscador.Text))
@@ -264,12 +260,6 @@ namespace PrototipoIS
                 }
                 LoadDGVproductos(false);
             };
-        }
-
-
-        private void tb_buscador_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         //Final

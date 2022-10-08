@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,21 +17,11 @@ namespace PrototipoIS
         public Suplidores()
         {
             InitializeComponent();
-        }
-
-        SqlConnection Conexion = new SqlConnection("Data Source=.;Initial Catalog=PrototipoIS;Integrated Security=True");
-
-
-        private void label7_Click(object sender, EventArgs e)
-        {
+            EventosAsociados();
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        String Conexion = ("Data Source=.;Initial Catalog=PrototipoIS;Integrated Security=True");
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -38,137 +29,242 @@ namespace PrototipoIS
             VolverInicio.Show();
         }
 
-        private void btn_Ingresar_Click(object sender, EventArgs e)
-        {
-            Conexion.Open();
-            int error = 0;
-            string Query = "INSERT INTO dbo.Suplidores (nom_supl, direccion_supl, contact_supl, nomEmp_supl) VALUES('" + tb_NomSup.Text + "','" + tb_DireccionSup.Text + "','" + tb_ContactoSup.Text + "','" + tb_NomEmpSup.Text + "')";
 
-            SqlCommand comando = new SqlCommand(Query, Conexion);
-
-            error = comando.ExecuteNonQuery();
-            if (error == 1)
-            {
-                MessageBox.Show("Datos guardados.");
-
-                tb_CodSup.Clear();
-                tb_NomSup.Clear();
-                tb_DireccionSup.Clear();
-                tb_ContactoSup.Clear();
-                tb_NomEmpSup.Clear();
-                tb_CodSup.Focus();
-
-                DataTable data = new DataTable();
-                SqlDataAdapter Data = new SqlDataAdapter("SELECT * FROM Suplidores", Conexion);
-
-                Data.Fill(data);
-
-                dgv_Suplidores.DataSource = data;
-            }
-            else
-                MessageBox.Show("Error al guardar los datos.");
-
-            Conexion.Close();
-        }
 
         private void Suplidores_Load(object sender, EventArgs e)
         {
-            Conexion.Open();
-
-            DataTable data = new DataTable();
-            SqlDataAdapter Data = new SqlDataAdapter("SELECT * FROM Suplidores", Conexion);
-
-            Data.Fill(data);
-
-            dgv_Suplidores.DataSource = data;
-            Conexion.Close();
+            LoadDGVproductos(true);
+            NuevoIngreso();
         }
 
-        private void btn_Limpiar_Click(object sender, EventArgs e)
+        //Metodos 
+        private void Guardar()
         {
-            tb_CodSup.Clear();
+
+            using (var openConexion = new SqlConnection(Conexion))
+            using (var comando = new SqlCommand())
+            {
+                openConexion.Open();
+                comando.Connection = openConexion;
+                comando.CommandText = "INSERT INTO Suplidores VALUES (@nombreSup, @direccionSup, @contactoSup, @nombreEmpresaSup) ";
+                comando.Parameters.Add("@nombreSup", SqlDbType.VarChar).Value = tb_NomSup.Text;
+                comando.Parameters.Add("@direccionSup", SqlDbType.VarChar).Value = tb_DireccionSup.Text;
+                comando.Parameters.Add("@contactoSup", SqlDbType.VarChar).Value = tb_ContactoSup.Text;
+                comando.Parameters.Add("@nombreEmpresaSup", SqlDbType.VarChar).Value = tb_NomEmpSup.Text;
+                comando.ExecuteNonQuery();
+            }
+        }
+
+        private void NuevoIngreso()
+        {
+            int id = 0;
+            using (var openConexion = new SqlConnection(Conexion))
+            using (var comando = new SqlCommand())
+            {
+                openConexion.Open();
+                comando.Connection = openConexion;
+                comando.CommandText = "SELECT MAX(id_suplidores) FROM Suplidores";
+
+                if (comando.ExecuteScalar() is DBNull) { id = 1; }
+                else if (Convert.ToInt32(comando.ExecuteScalar()) > 0)
+                {
+                    id = Convert.ToInt32(comando.ExecuteScalar()) + 1;
+                }
+                tb_CodSup.Text = Convert.ToString(id);
+
+            }
+
+        }
+
+        private void Limpieza()
+        {
             tb_NomSup.Clear();
             tb_DireccionSup.Clear();
             tb_ContactoSup.Clear();
             tb_NomEmpSup.Clear();
-            tb_CodSup.Focus();
+            tb_NomSup.Focus();
         }
 
-        private void btn_Actualizar_Click(object sender, EventArgs e)
+        private void Actualizar()
         {
-            Conexion.Open();
-
-            int error = 0;
-
-            string Query = " UPDATE Suplidores SET nom_supl= '" + tb_NomSup.Text + "', direccion_supl='" + tb_DireccionSup.Text + "',contact_supl='"
-                + tb_ContactoSup.Text + "',nomEmp_supl='" + tb_NomEmpSup.Text + "'";
-
-            SqlCommand comando = new SqlCommand(Query, Conexion);
-
-            error = comando.ExecuteNonQuery();
-            if (error == 1)
+            using (var openConexion = new SqlConnection(Conexion))
+            using (var comando = new SqlCommand())
             {
-                MessageBox.Show("Datos actualizados");
-                tb_CodSup.Clear();
-                tb_NomSup.Clear();
-                tb_DireccionSup.Clear();
-                tb_ContactoSup.Clear();
-                tb_NomEmpSup.Clear();
-                tb_CodSup.Focus();
-                DataTable data = new DataTable();
-                SqlDataAdapter Data = new SqlDataAdapter("SELECT * FROM Suplidores", Conexion);
+                openConexion.Open();
+                comando.Connection = openConexion;
+                comando.CommandText = "UPDATE Suplidores SET nom_supl = @nombreSup, direccion_supl = @direccionSup, contact_supl=@contactoSup, nomEmp_supl=@nombreEmpresaSup WHERE id_suplidores = @id";
+                comando.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(tb_CodSup.Text);
+                comando.Parameters.Add("@nombreSup", SqlDbType.VarChar).Value = tb_NomSup.Text;
+                comando.Parameters.Add("@direccionSup", SqlDbType.VarChar).Value = tb_DireccionSup.Text;
+                comando.Parameters.Add("@contactoSup", SqlDbType.VarChar).Value = tb_ContactoSup.Text;
+                comando.Parameters.Add("@nombreEmpresaSup", SqlDbType.VarChar).Value = tb_NomEmpSup.Text;
+                comando.ExecuteNonQuery();
 
-                Data.Fill(data);
-
-                dgv_Suplidores.DataSource = data;
             }
-
-            Conexion.Close();
+        }
+        private void dgv_Suplidores_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            tb_CodSup.Text = dgv_Suplidores.CurrentRow.Cells[0].Value.ToString();
+            tb_NomSup.Text = dgv_Suplidores.CurrentRow.Cells[1].Value.ToString();
+            tb_DireccionSup.Text = dgv_Suplidores.CurrentRow.Cells[2].Value.ToString();
+            tb_ContactoSup.Text = dgv_Suplidores.CurrentRow.Cells[3].Value.ToString();
+            tb_NomEmpSup.Text = dgv_Suplidores.CurrentRow.Cells[4].Value.ToString();
         }
 
-        private void btn_Eliminar_Click(object sender, EventArgs e)
+        private void Eliminar(int eliminar)
         {
-            Conexion.Open();
-
-            int error = 0;
-
-            string Query = "DELETE FROM Suplidores WHERE nom_supl=" + tb_NomSup.Text + "";
-            SqlCommand comando = new SqlCommand(Query, Conexion);
-
-            error = comando.ExecuteNonQuery();
-            if (error == 1)
+            using (var openConexion = new SqlConnection(Conexion))
+            using (var comando = new SqlCommand())
             {
-                MessageBox.Show("El producto ha sido eliminado.");
-                tb_NomSup.Clear();
-                DataTable data = new DataTable();
-                SqlDataAdapter Data = new SqlDataAdapter("SELECT * FROM Suplidores", Conexion);
-
-                Data.Fill(data);
-
-                dgv_Suplidores.DataSource = data;
+                openConexion.Open();
+                comando.Connection = openConexion;
+                comando.CommandText = "DELETE FROM Suplidores WHERE id_suplidores = @id";
+                comando.Parameters.Add("@id", SqlDbType.Int).Value = eliminar;
+                comando.ExecuteNonQuery();
             }
 
+        }
+
+        //Mantener los campos actualizados en el DGV
+        public DataTable GetAll()
+        {
+            var tabla = new DataTable();
+            using (var openConexion = new SqlConnection(Conexion))
+            using (var comando = new SqlCommand())
+            {
+                openConexion.Open();
+                comando.Connection = openConexion;
+                var datos = new SqlDataAdapter("SELECT * FROM Suplidores", openConexion);
+                datos.Fill(tabla);
+            }
+            return tabla;
+        }
+
+        public DataTable GetByValue(string value)
+        {
+            var tabla = new DataTable();
+            int id = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
+            string nombre = value;
+            using (var openConexion = new SqlConnection(Conexion))
+            using (var comando = new SqlCommand())
+            {
+                openConexion.Open();
+                comando.Connection = openConexion;
+                comando.CommandText = ("SELECT * FROM Suplidores WHERE id_suplidores=@id OR nom_supl LIKE @nombre+'%' ORDER BY id_suplidores ");
+                comando.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                var datos = new SqlDataAdapter(comando);
+                datos.Fill(tabla);
+            }
+            return tabla;
+        }
+
+        private void LoadDGVproductos(bool search)
+        {
+            if (search == true)
+            {
+                dgv_Suplidores.DataSource = GetAll();
+            }
             else
             {
-                MessageBox.Show("No se ha eliminado ningun producto.");
+                dgv_Suplidores.DataSource = GetByValue(tb_buscador.Text);
             }
-            Conexion.Close();
+            ;
+            label7.Text = "Total de Registros: " + dgv_Suplidores.RowCount;
+
         }
 
-        private void btnBuscador_Click(object sender, EventArgs e)
+        //Metodo para englobar
+        private void Procesos(object sender)
         {
-            Conexion.Open();
 
-            string Query = "SELECT * FROM Suplidores WHERE id_suplidores= " + tb_buscador.Text;
-            SqlDataAdapter adaptador = new SqlDataAdapter(Query, Conexion);
-            DataTable data = new DataTable();
-            adaptador.Fill(data);
-            dgv_Suplidores.DataSource = data;
-            SqlCommand comando = new SqlCommand(Query, Conexion);
-            SqlDataReader lector;
-            lector = comando.ExecuteReader();
+            Button btn = sender as Button;
 
-            Conexion.Close();
+            if (btn == btn_Ingresar)
+            {
+                Guardar();
+            }
+
+            else if (btn == btn_Actualizar)
+            {
+                Actualizar();
+            }
+            else if (btn == btn_Eliminar)
+            {
+                Eliminar(Convert.ToInt32(dgv_Suplidores.CurrentRow.Cells[0].Value));
+                Limpieza();
+                NuevoIngreso();
+                LoadDGVproductos(true);
+            }
+            if (btn != btn_Eliminar)
+            {
+                Limpieza();
+                NuevoIngreso();
+                LoadDGVproductos(true);
+            }
+
         }
+
+        private void EventosAsociados()
+        {
+            btn_Ingresar.Click += delegate (object sender, EventArgs e) //Agregar
+            {
+                Procesos(btn_Ingresar);
+            };
+
+            btn_Limpiar.Click += delegate (object sender, EventArgs e) //Limpiar
+            {
+                Procesos(btn_Limpiar);
+
+            };
+
+            btn_Actualizar.Click += delegate (object sender, EventArgs e)
+            {
+                Procesos(btn_Actualizar);
+            };
+
+            btn_Eliminar.Click += delegate (object sender, EventArgs e)
+            {
+                var result = MessageBox.Show("¿Desea eliminar este producto?", "ELIMINAR PRODUCTO",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button1);
+
+                if (result == DialogResult.Yes)
+                {
+
+                    Procesos(btn_Eliminar);
+
+                }
+            };
+
+            tb_buscador.TextChanged += delegate (object sender, EventArgs e)
+            {
+                if (string.IsNullOrWhiteSpace(tb_buscador.Text))
+                {
+                    LoadDGVproductos(true);
+                    return;
+                }
+                LoadDGVproductos(false);
+            };
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
