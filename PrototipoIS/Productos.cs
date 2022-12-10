@@ -23,7 +23,9 @@ namespace PrototipoIS
 
         //Conexión de Base de Datos.
         String Conexion = "Data Source=.;Initial Catalog=PrototipoIS;Integrated Security=True";
-        
+
+        ProductosModel model = new ProductosModel();
+
         //Mantener los campos actualizados en el DGV
         public DataTable GetAll()
         {
@@ -39,6 +41,37 @@ namespace PrototipoIS
                 datos.Fill(tabla);
             }
             return tabla;
+        }
+
+        public List<ProductosModel> GetAllMethod()
+        {
+            var ProductList = new List<ProductosModel>();
+            using (var openConexion = new SqlConnection(Conexion))
+            using (var comando = new SqlCommand())
+            {
+                openConexion.Open();
+                comando.Connection = openConexion;
+                comando.CommandText = "SELECT * FROM Productos";
+                //var datos = new SqlDataAdapter("SELECT * FROM Productos", openConexion);
+                //datos.Fill(tabla);
+                using (var read = comando.ExecuteReader())
+                {
+                    while (read.Read())
+                    {
+                        var model = new ProductosModel();
+                            model.Id = (int)read[0];
+                            model.Nombre = read[1].ToString();
+                            model.Tipo = read[2].ToString();
+                            model.Descripcion = read[3].ToString();
+                            model.Cantidad = read[4].ToString();
+                            model.Precio = read[5].ToString();
+
+                        ProductList.Add(model);
+                    }
+                 }
+
+            }
+            return ProductList;
         }
 
         public DataTable GetByValue(string value)
@@ -62,9 +95,13 @@ namespace PrototipoIS
 
         private void LoadDGVproductos(bool search)
         {
-            if(search == true)
+            List<ProductosModel> Lista;
+
+            if (search == true)
             {
-                dgvProductos.DataSource = GetAll();
+                //dgvProductos.DataSource = GetAll();
+                Lista = GetAllMethod();
+                dgvProductos.DataSource = Lista;
             }
             else
             {
@@ -261,7 +298,24 @@ namespace PrototipoIS
                 LoadDGVproductos(false);
             };
         }
-
-        //Final
+    //Final
     }
+}
+public class ProductosModel
+{
+    //Campos
+    private int id;
+    private string nombre;
+    private string tipo;
+    private string descripcion;
+    private string cantidad;
+    private string precio;
+
+    //Propiedades
+    public int Id { get => id; set => id = value; }
+    public string Nombre { get => nombre; set => nombre = value; }
+    public string Tipo { get => tipo; set => tipo = value; }
+    public string Descripcion { get => descripcion; set => descripcion = value; }
+    public string Cantidad { get => cantidad; set => cantidad = value; }
+    public string Precio { get => precio; set => precio = value; }
 }

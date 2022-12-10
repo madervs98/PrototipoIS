@@ -32,5 +32,10 @@ namespace PrototipoIS
             MessageBox.Show("Datos Cambiados Correctamente.");
             this.Hide();
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

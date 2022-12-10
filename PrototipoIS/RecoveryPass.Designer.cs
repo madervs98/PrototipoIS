@@ -37,26 +37,30 @@
             this.tbContraseña = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnValidar
             // 
-            this.btnValidar.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.btnValidar.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnValidar.Location = new System.Drawing.Point(120, 126);
+            this.btnValidar.BackColor = System.Drawing.Color.Sienna;
+            this.btnValidar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnValidar.ForeColor = System.Drawing.Color.AliceBlue;
+            this.btnValidar.Location = new System.Drawing.Point(117, 172);
             this.btnValidar.Name = "btnValidar";
             this.btnValidar.Size = new System.Drawing.Size(75, 28);
             this.btnValidar.TabIndex = 41;
             this.btnValidar.Text = "Validar";
-            this.btnValidar.UseVisualStyleBackColor = true;
+            this.btnValidar.UseVisualStyleBackColor = false;
             this.btnValidar.Click += new System.EventHandler(this.btm_Click);
             // 
             // tbNomUser
             // 
-            this.tbNomUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbNomUser.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbNomUser.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.tbNomUser.Location = new System.Drawing.Point(66, 97);
+            this.tbNomUser.Location = new System.Drawing.Point(63, 143);
             this.tbNomUser.Name = "tbNomUser";
             this.tbNomUser.Size = new System.Drawing.Size(190, 23);
             this.tbNomUser.TabIndex = 43;
@@ -66,7 +70,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(63, 78);
+            this.label2.Location = new System.Drawing.Point(60, 124);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(132, 16);
@@ -75,23 +79,23 @@
             // 
             // btnGuardarCambios
             // 
-            this.btnGuardarCambios.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.btnGuardarCambios.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnGuardarCambios.Location = new System.Drawing.Point(87, 255);
+            this.btnGuardarCambios.BackColor = System.Drawing.Color.Sienna;
+            this.btnGuardarCambios.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarCambios.ForeColor = System.Drawing.Color.AliceBlue;
+            this.btnGuardarCambios.Location = new System.Drawing.Point(84, 301);
             this.btnGuardarCambios.Name = "btnGuardarCambios";
             this.btnGuardarCambios.Size = new System.Drawing.Size(145, 28);
             this.btnGuardarCambios.TabIndex = 48;
             this.btnGuardarCambios.Text = "Guardar Cambios";
-            this.btnGuardarCambios.UseVisualStyleBackColor = true;
+            this.btnGuardarCambios.UseVisualStyleBackColor = false;
             this.btnGuardarCambios.Visible = false;
             this.btnGuardarCambios.Click += new System.EventHandler(this.btnGuardarCambios_Click);
             // 
             // tbContraseñaN
             // 
-            this.tbContraseñaN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbContraseñaN.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbContraseñaN.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.tbContraseñaN.Location = new System.Drawing.Point(66, 226);
+            this.tbContraseñaN.Location = new System.Drawing.Point(63, 272);
             this.tbContraseñaN.Name = "tbContraseñaN";
             this.tbContraseñaN.Size = new System.Drawing.Size(190, 23);
             this.tbContraseñaN.TabIndex = 47;
@@ -102,7 +106,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(63, 207);
+            this.label4.Location = new System.Drawing.Point(60, 253);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(128, 16);
@@ -112,10 +116,9 @@
             // 
             // tbContraseña
             // 
-            this.tbContraseña.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbContraseña.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbContraseña.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.tbContraseña.Location = new System.Drawing.Point(66, 181);
+            this.tbContraseña.Location = new System.Drawing.Point(63, 227);
             this.tbContraseña.Name = "tbContraseña";
             this.tbContraseña.Size = new System.Drawing.Size(190, 23);
             this.tbContraseña.TabIndex = 45;
@@ -126,7 +129,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(63, 162);
+            this.label3.Location = new System.Drawing.Point(60, 208);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 16);
@@ -140,20 +143,41 @@
             this.label1.Font = new System.Drawing.Font("Century Gothic", 14.25F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(27, 33);
+            this.label1.Location = new System.Drawing.Point(32, 80);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(246, 23);
             this.label1.TabIndex = 49;
             this.label1.Text = "RECUPERAR CONTRASEÑA";
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Location = new System.Drawing.Point(-3, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(316, 33);
+            this.panel1.TabIndex = 50;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::PrototipoIS.Properties.Resources.close;
+            this.pictureBox1.Location = new System.Drawing.Point(282, 5);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(24, 24);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 52;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
             // RecoveryPass
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(310, 315);
+            this.BackColor = System.Drawing.Color.BurlyWood;
+            this.ClientSize = new System.Drawing.Size(310, 360);
             this.ControlBox = false;
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnGuardarCambios);
             this.Controls.Add(this.tbContraseñaN);
@@ -163,8 +187,12 @@
             this.Controls.Add(this.tbNomUser);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnValidar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RecoveryPass";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Recuperar Contraseña";
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -181,5 +209,7 @@
         private System.Windows.Forms.TextBox tbContraseña;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

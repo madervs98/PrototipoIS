@@ -90,5 +90,15 @@ namespace PrototipoIS
             Cotizaciones CrearOrdenC = new Cotizaciones();
             CrearOrdenC.Show();
         }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
