@@ -43,7 +43,7 @@ namespace PrototipoIS
             return tabla;
         }
 
-        public List<ProductosModel> GetAllMethod()
+        public List<ProductosModel> GetAllMethod() 
         {
             var ProductList = new List<ProductosModel>();
             using (var openConexion = new SqlConnection(Conexion))
@@ -99,7 +99,6 @@ namespace PrototipoIS
 
             if (search == true)
             {
-                //dgvProductos.DataSource = GetAll();
                 Lista = GetAllMethod();
                 dgvProductos.DataSource = Lista;
             }

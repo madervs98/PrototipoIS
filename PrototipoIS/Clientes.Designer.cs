@@ -46,8 +46,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.tb_telefono = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.tb_NombreEmp = new System.Windows.Forms.TextBox();
             this.tb_RNC = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -74,7 +72,6 @@
             this.btnEliminar.Size = new System.Drawing.Size(80, 35);
             this.btnEliminar.TabIndex = 39;
             this.btnEliminar.UseVisualStyleBackColor = false;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnRefresh
             // 
@@ -87,7 +84,6 @@
             this.btnRefresh.Size = new System.Drawing.Size(80, 35);
             this.btnRefresh.TabIndex = 38;
             this.btnRefresh.UseVisualStyleBackColor = false;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btn_Limpiar
             // 
@@ -100,7 +96,7 @@
             this.btn_Limpiar.Size = new System.Drawing.Size(80, 35);
             this.btn_Limpiar.TabIndex = 37;
             this.btn_Limpiar.UseVisualStyleBackColor = false;
-            this.btn_Limpiar.Click += new System.EventHandler(this.button2_Click);
+            this.btn_Limpiar.Click += new System.EventHandler(this.btn_Limpiar_Click);
             // 
             // btn_Ingresar
             // 
@@ -113,7 +109,6 @@
             this.btn_Ingresar.Size = new System.Drawing.Size(80, 35);
             this.btn_Ingresar.TabIndex = 36;
             this.btn_Ingresar.UseVisualStyleBackColor = false;
-            this.btn_Ingresar.Click += new System.EventHandler(this.btn_Ingresar_Click);
             // 
             // dgvClientes
             // 
@@ -140,24 +135,25 @@
             this.dgvClientes.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvClientes.Size = new System.Drawing.Size(841, 296);
             this.dgvClientes.TabIndex = 35;
+            this.dgvClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientes_CellClick);
             // 
             // tb_CedulaClie
             // 
-            this.tb_CedulaClie.Location = new System.Drawing.Point(184, 271);
+            this.tb_CedulaClie.Location = new System.Drawing.Point(184, 245);
             this.tb_CedulaClie.Name = "tb_CedulaClie";
             this.tb_CedulaClie.Size = new System.Drawing.Size(190, 20);
             this.tb_CedulaClie.TabIndex = 33;
             // 
             // tbCorreo
             // 
-            this.tbCorreo.Location = new System.Drawing.Point(184, 245);
+            this.tbCorreo.Location = new System.Drawing.Point(184, 219);
             this.tbCorreo.Name = "tbCorreo";
             this.tbCorreo.Size = new System.Drawing.Size(190, 20);
             this.tbCorreo.TabIndex = 32;
             // 
             // tb_direClie
             // 
-            this.tb_direClie.Location = new System.Drawing.Point(184, 219);
+            this.tb_direClie.Location = new System.Drawing.Point(184, 193);
             this.tb_direClie.Name = "tb_direClie";
             this.tb_direClie.Size = new System.Drawing.Size(190, 20);
             this.tb_direClie.TabIndex = 31;
@@ -178,14 +174,13 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 28;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 8.5F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(31, 275);
+            this.label6.Location = new System.Drawing.Point(31, 249);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(121, 16);
@@ -197,7 +192,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 8.5F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(31, 249);
+            this.label4.Location = new System.Drawing.Point(31, 223);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 16);
@@ -209,7 +204,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 8.5F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(31, 223);
+            this.label3.Location = new System.Drawing.Point(31, 197);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 16);
@@ -227,6 +222,7 @@
             this.label2.Size = new System.Drawing.Size(121, 16);
             this.label2.TabIndex = 22;
             this.label2.Text = "Nombre del Cliente";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
@@ -241,35 +237,16 @@
             this.label1.TabIndex = 21;
             this.label1.Text = "REGISTRO DE CLIENTES";
             // 
-            // tb_telefono
-            // 
-            this.tb_telefono.Location = new System.Drawing.Point(184, 193);
-            this.tb_telefono.Name = "tb_telefono";
-            this.tb_telefono.Size = new System.Drawing.Size(190, 20);
-            this.tb_telefono.TabIndex = 42;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Century Gothic", 8.5F, System.Drawing.FontStyle.Bold);
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(31, 195);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 16);
-            this.label7.TabIndex = 41;
-            this.label7.Text = "Teléfono";
-            // 
             // tb_NombreEmp
             // 
-            this.tb_NombreEmp.Location = new System.Drawing.Point(184, 323);
+            this.tb_NombreEmp.Location = new System.Drawing.Point(184, 297);
             this.tb_NombreEmp.Name = "tb_NombreEmp";
             this.tb_NombreEmp.Size = new System.Drawing.Size(190, 20);
             this.tb_NombreEmp.TabIndex = 47;
             // 
             // tb_RNC
             // 
-            this.tb_RNC.Location = new System.Drawing.Point(184, 297);
+            this.tb_RNC.Location = new System.Drawing.Point(184, 271);
             this.tb_RNC.Name = "tb_RNC";
             this.tb_RNC.Size = new System.Drawing.Size(190, 20);
             this.tb_RNC.TabIndex = 46;
@@ -279,7 +256,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Century Gothic", 8.5F, System.Drawing.FontStyle.Bold);
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(31, 327);
+            this.label9.Location = new System.Drawing.Point(31, 301);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(141, 16);
@@ -291,7 +268,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Century Gothic", 8.5F, System.Drawing.FontStyle.Bold);
             this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(31, 301);
+            this.label10.Location = new System.Drawing.Point(31, 275);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(32, 16);
@@ -300,7 +277,7 @@
             // 
             // tb_DireccionEmpre
             // 
-            this.tb_DireccionEmpre.Location = new System.Drawing.Point(184, 349);
+            this.tb_DireccionEmpre.Location = new System.Drawing.Point(184, 323);
             this.tb_DireccionEmpre.Name = "tb_DireccionEmpre";
             this.tb_DireccionEmpre.Size = new System.Drawing.Size(190, 20);
             this.tb_DireccionEmpre.TabIndex = 50;
@@ -310,7 +287,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Century Gothic", 8.5F, System.Drawing.FontStyle.Bold);
             this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(31, 353);
+            this.label11.Location = new System.Drawing.Point(31, 327);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(150, 16);
@@ -388,8 +365,6 @@
             this.Controls.Add(this.tb_RNC);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.tb_telefono);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btn_Limpiar);
@@ -432,8 +407,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tb_telefono;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tb_NombreEmp;
         private System.Windows.Forms.TextBox tb_RNC;
         private System.Windows.Forms.Label label9;

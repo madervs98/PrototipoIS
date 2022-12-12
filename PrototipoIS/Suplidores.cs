@@ -22,14 +22,15 @@ namespace PrototipoIS
         }
 
         String Conexion = ("Data Source=.;Initial Catalog=PrototipoIS;Integrated Security=True");
+
+        SuplidoresModel model = new SuplidoresModel();
+
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Hide();
             Usuario VolverInicio = new Usuario();
             VolverInicio.Show();
         }
-
-
 
         private void Suplidores_Load(object sender, EventArgs e)
         {
@@ -140,6 +141,38 @@ namespace PrototipoIS
             return tabla;
         }
 
+        public List<SuplidoresModel> GetAllMethod()
+         {
+             var SuplidoresList = new List<SuplidoresModel>();
+             using (var openConexion = new SqlConnection(Conexion))
+             using (var comando = new SqlCommand())
+             {
+                 openConexion.Open();
+                 comando.Connection = openConexion;
+                 comando.CommandText = "SELECT * FROM Suplidores";
+                 //var datos = new SqlDataAdapter("SELECT * FROM Productos", openConexion);
+                 //datos.Fill(tabla);
+                 using (var read = comando.ExecuteReader())
+                 {
+                     while (read.Read())
+                     {
+                         var model = new SuplidoresModel();
+                         model.Id = (int)read[0];
+                         model.Nombre = read[1].ToString();
+                         model.Direccion = read[2].ToString();
+                         model.Telefono = read[3].ToString();
+                         model.Empresa = read[4].ToString();
+                         //model.Precio = read[5].ToString();
+
+                         SuplidoresList.Add(model);
+                     }
+                 }
+
+             }
+             return SuplidoresList;
+         }
+
+
         public DataTable GetByValue(string value)
         {
             var tabla = new DataTable();
@@ -249,4 +282,23 @@ namespace PrototipoIS
             };
         }
     }
+}
+
+public class SuplidoresModel
+{
+    //Campos
+    private int id;
+    private string nombre;
+    private string direccion;
+    private string telefono;
+    private string nombre_empresa;
+    private string precio;
+
+    //Propiedades
+    public int Id { get => id; set => id = value; }
+    public string Nombre { get => nombre; set => nombre = value; }
+    public string Direccion { get => direccion; set => direccion = value; }
+    public string Telefono { get => telefono; set => telefono = value; }
+    public string Empresa { get => nombre_empresa; set => nombre_empresa = value; }
+    //public string Precio { get => precio; set => precio = value; }
 }

@@ -163,6 +163,7 @@
             this.dgvProductos.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvProductos.Size = new System.Drawing.Size(645, 257);
             this.dgvProductos.TabIndex = 63;
+            this.dgvProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellClick);
             // 
             // cb_TipoPro
             // 
