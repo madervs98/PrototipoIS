@@ -194,19 +194,6 @@ namespace PrototipoIS
 
         }
 
-        /*private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            var result = MessageBox.Show("¿Desea eliminar este producto?", "ELIMINAR PRODUCTO",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Question,
-            MessageBoxDefaultButton.Button1);
-
-            if (result == DialogResult.Yes)
-            {
-                Eliminar(Convert.ToInt32(dgvClientes.CurrentRow.Cells[0].Value));
-                LoadDGVproductos();
-            }
-        }*/
 
         private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
