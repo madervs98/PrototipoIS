@@ -214,8 +214,8 @@ namespace PrototipoIS
         {
             tb_CodProduct.Text = dgvProductos.CurrentRow.Cells[0].Value.ToString();
             tb_NomPro.Text = dgvProductos.CurrentRow.Cells[1].Value.ToString();
-            tb_DescripPro.Text = dgvProductos.CurrentRow.Cells[2].Value.ToString();
-            cb_TipoPro.Text = dgvProductos.CurrentRow.Cells[3].Value.ToString();
+            cb_TipoPro.Text = dgvProductos.CurrentRow.Cells[2].Value.ToString();
+            tb_DescripPro.Text = dgvProductos.CurrentRow.Cells[3].Value.ToString();
             tb_CantPro.Text = dgvProductos.CurrentRow.Cells[4].Value.ToString();
             tb_PrecioPro.Text = dgvProductos.CurrentRow.Cells[5].Value.ToString();
         }
@@ -253,7 +253,7 @@ namespace PrototipoIS
             }
             
         }
-
+         
         private void EventosAsociados()
         {
             btn_Ingresar.Click += delegate (object sender, EventArgs e) //Agregar
